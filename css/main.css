@@ -1,3 +1,68 @@
 * {
     box-sizing: border-box;
 }
+
+#solitaireContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vmin;
+}
+
+header {
+  font-size: 4vmin;
+  color: #808080;
+  letter-spacing: 1vmin;
+  margin-top: 4vmin;
+}
+
+button {
+  margin: 4vmin;
+  padding: 1.5vmin;
+  font-size: 1.5vmin;
+  border-radius: 4vmin;
+  border: 0.1vmin solid grey;
+  color: grey;
+}
+
+button:hover {
+  color: white;
+  background-color: darkgrey;
+}
+
+#topRow {
+    display: flex;
+    flex-direction: row;
+    height: 20vmin;
+}
+
+#topRow > div {
+    display: flex;
+    flex-direction: row;;
+}
+
+.spaceHolder {
+    width: 13.5vmin;
+}
+
+#bottomRow {
+    display: flex;
+    flex-direction: row;
+}
+
+.cardContainer {
+    width: 12vmin;
+    height: 16.5vmin;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgb(195, 195, 195);
+    border-radius: .5vmin;
+    margin: .75vmin;
+    padding: 0;
+}
+
+.card {
+    width: 12vmin;
+    height: 16.5vmin;
+    margin: -1px 0 -13.5vmin -1px
+}

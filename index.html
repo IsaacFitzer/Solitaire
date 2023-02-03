@@ -5,11 +5,39 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solitaire</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
     <link href="css/card-library/css/cardstarter.css" rel="stylesheet" type="text/css"/>
     <link href="css/main.css" rel="stylesheet" type="text/css"/>
     <script defer src="js/main.js"></script>
 </head>
 <body>
-    
+    <div id="solitaireContainer">
+        <header>Solitaire</header>
+        <button>New Game</button>
+        <div id="topRow">
+            <div id="deck">
+                <div class="cardContainer"></div>
+                <div class="cardContainer"></div>
+            </div>
+            <div class="spaceHolder"></div>
+            <div id="complete">
+                <div class="cardContainer"></div>
+                <div class="cardContainer"></div>
+                <div class="cardContainer"></div>
+                <div class="cardContainer"></div>
+            </div>
+        </div>
+        <div id="bottomRow">
+            <div class="cardContainer"></div>
+            <div class="cardContainer"></div>
+            <div class="cardContainer"></div>
+            <div class="cardContainer"></div>
+            <div class="cardContainer"></div>
+            <div class="cardContainer"></div>
+            <div class="cardContainer"></div>
+        </div>
+    </div>
 </body>
 </html>
