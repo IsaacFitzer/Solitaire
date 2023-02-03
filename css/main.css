@@ -34,6 +34,7 @@ button:hover {
     display: flex;
     flex-direction: row;
     height: 20vmin;
+    width: 94.5vmin;
 }
 
 #topRow > div {
@@ -41,8 +42,8 @@ button:hover {
     flex-direction: row;;
 }
 
-.spaceHolder {
-    width: 13.5vmin;
+#complete {
+    margin-left: auto;
 }
 
 #bottomRow {
@@ -64,5 +65,11 @@ button:hover {
 .card {
     width: 12vmin;
     height: 16.5vmin;
-    margin: -1px 0 -13.5vmin -1px
+    margin: 0;
+    position: absolute;
+}
+
+#bottomRow .card {
+    margin: -1px 0 -13.5vmin -1px;
+    position: static;
 }
