@@ -35,6 +35,8 @@ button:hover {
     flex-direction: row;
     height: 20vmin;
     width: 94.5vmin;
+    position: absolute;
+    top: 22.5vmin;
 }
 
 #topRow > div {
@@ -49,6 +51,8 @@ button:hover {
 #bottomRow {
     display: flex;
     flex-direction: row;
+    position: absolute;
+    top: 45vmin;
 }
 
 .cardContainer {
@@ -67,6 +71,9 @@ button:hover {
     height: 16.5vmin;
     margin: 0;
     position: absolute;
+    top: .75vmin;
+    left: .75vmin;
+    transition: top 1s ease-out, left 1s ease-out;
 }
 
 #bottomRow .card {

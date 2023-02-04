@@ -7,9 +7,9 @@
 
   /*----- cached elements  -----*/
 const newGameButton =  document.querySelector('button')
-const deckContainers = document.querySelectorAll('#deck > div')
-const completeContainers = document.querySelectorAll('#complete > div')
-const bottomRowContainers = document.querySelectorAll('#bottomRow > div')
+const deckContainers = document.querySelectorAll('#deck > .cardContainer')
+const completeContainers = document.querySelectorAll('#complete > .cardContainer')
+const bottomRowContainers = document.querySelectorAll('#bottomRow > .cardContainer')
 
   /*----- event listeners -----*/
 newGameButton.addEventListener('click', () => startNewGame())
@@ -18,13 +18,32 @@ newGameButton.addEventListener('click', () => startNewGame())
 function startNewGame() {
     newGameButton.style.visibility = 'hidden'
     document.querySelectorAll('.cardContainer').forEach(container => container.innerHTML = '')
-    console.log(deckContainers[0])
     getShuffledDeck().forEach(card => deckContainers[0].innerHTML += `<div class="card back ${card.face}"></div>`)
     dealCards()
 }
 
 function dealCards() {
-    // write code here
+    // const topCard = document.querySelector('#deck > .cardContainer:first-child > .card:last-child')
+    // setTimeout(() => topCard.style.top = '23.25vmin', 0)
+    // setTimeout(() => topCard.style.left = '14.25vmin', 0)
+    // setTimeout(() => topCard.style.left = '27.75vmin', 1000)
+    // console.log(topCard.style)
+    // console.log(deckContainers[0].lastChild)
+    let numCardsInRow = 7
+    let curDelay = 0
+    while (numCardsInRow > 0) {
+        let idx = 7 - numCardsInRow
+        while (idx < 7) {
+            setTimeout((curIdx, curNumCardsInRow) => {
+                const topCard = deckContainers[0].lastChild
+                if (curIdx === 7 - curNumCardsInRow) topCard.classList.remove('back')
+                bottomRowContainers[curIdx].appendChild(topCard)
+            }, curDelay, idx, numCardsInRow)
+            idx++
+            curDelay += 200
+        }
+        numCardsInRow--
+    }
 }
 
 function getShuffledDeck() {
