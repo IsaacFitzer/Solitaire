@@ -38,6 +38,13 @@ function dealCards() {
                 const topCard = deckContainers[0].lastChild
                 if (curIdx === 7 - curNumCardsInRow) topCard.classList.remove('back')
                 bottomRowContainers[curIdx].appendChild(topCard)
+                topCard.style.position = 'relative'
+                topCard.style.top = `${(curNumCardsInRow - 7) * 2.15 - 22.5}vmin`
+                topCard.style.left = `${-13.5 * curIdx}vmin`
+                setTimeout((curTopCard) => {
+                    curTopCard.style.top = '0'
+                    curTopCard.style.left = '0'
+                }, 30, topCard)
             }, curDelay, idx, numCardsInRow)
             idx++
             curDelay += 200
