@@ -78,5 +78,14 @@ button:hover {
 
 #bottomRow .card {
     margin: -1px 0 -14.25vmin -1px;
-    position: static;
+}
+
+#mouseContainer {
+    position: absolute;
+    transform: translate(-50%, 0);
+    border: none;
+}
+
+#mouseContainer > .card {
+    margin: -1px 0 -14.25vmin -1px;
 }
