@@ -28,34 +28,51 @@ function startNewGame() {
 }
 
 function onClick(e) {
-    console.log(e)
     if (e.target.tagName === 'BUTTON') startNewGame()
     else if (e.target.className.split(' ').includes('card')) {
         if (e.target.parentElement === pickedUpFrom) {
-            holdingCards = false
-            pickedUpFrom = null
             moveItemsToNewContainer(mouseContainer, e.target.parentElement)
         } else if (holdingCards) {
             const cardHeldInfo = getCardInfo(mouseContainer.firstChild)
-            if (e.target.parentElement.parentElement.parentElement.id === 'topRow') {
-                // top row stuff
-            } else if (e.target.parentElement.parentElement.id === 'bottomRow') {
-                const topCardInfo = getCardInfo(e.target.parentElement.lastChild)
-                if (cardHeldInfo.value + 1 === topCardInfo.value && cardHeldInfo.color !== topCardInfo.color) {
-                    holdingCards = false
-                    pickedUpFrom = null
-                    moveItemsToNewContainer(mouseContainer, e.target.parentElement)
-                }
+            const topCardInfo = getCardInfo(e.target.parentElement.lastChild)
+            if (e.target.parentElement.parentElement.parentElement.id === 'topRow'
+                    && e.target.parentElement.parentElement.id === 'complete'
+                    && cardHeldInfo.value - 1 === topCardInfo.value
+                    && cardHeldInfo.suit === topCardInfo.suit) {
+                moveItemsToNewContainer(mouseContainer, e.target.parentElement)
+                // check for win
+                let won = true
+                completeContainers.forEach((completeContainer) => {
+                    if (completeContainer.lastChild === null || getCardInfo(completeContainer.lastChild).value !== 13) {
+                        won = false
+                    }
+                })
+                if (won) console.log('Won!')
+            }
+            if (e.target.parentElement.parentElement.id === 'bottomRow'
+                    && cardHeldInfo.value + 1 === topCardInfo.value
+                    && cardHeldInfo.color !== topCardInfo.color) {
+                moveItemsToNewContainer(mouseContainer, e.target.parentElement)
             }
         } else {
             if (e.target.parentElement.parentElement.parentElement.id === 'topRow') {
                 if (e.target.parentElement == deckContainers[0]) {
                     // flip over 3 cards
+                    for (let idx = 0; idx < 3; idx++) {
+                        setTimeout(() => {
+                            const topCard = deckContainers[0].lastChild
+                            if (topCard === null) return
+                            topCard.classList.remove('back')
+                            deckContainers[1].appendChild(topCard)
+                            topCard.style.position = 'relative'
+                            topCard.style.top = '0vmin'
+                            topCard.style.left = '-13.5vmin'
+                            setTimeout(() => topCard.style.left = '0', 30)
+                        }, 200 * idx)
+                    }
                 } else {
                     // pick up a card from the top row
-                    holdingCards = true
-                    pickedUpFrom = e.target.parentElement
-                    mouseContainer.appendChild(e.target)
+                    moveItemsToNewContainer(e.target.parentElement, mouseContainer, e.target.parentElement.lastChild)
                 }
             } else if (e.target.parentElement.parentElement.id === 'bottomRow') {
                 if (e.target.className.includes('back')) {
@@ -63,29 +80,37 @@ function onClick(e) {
                         e.target.parentElement.lastChild.classList.remove('back')
                     }
                 } else {
-                    holdingCards = true
-                    pickedUpFrom = e.target.parentElement
                     moveItemsToNewContainer(e.target.parentElement, mouseContainer, e.target)
                 }
             }
         }
     } else if (e.target.className.includes('cardContainer')) {
         if (holdingCards) {
-            if (e.target === pickedUpFrom || mouseContainer.children.length === 1 && 
-                    (e.target.parentElement.id == 'complete' && getCardInfo(mouseContainer.firstChild).value === 1 
+            if (e.target === pickedUpFrom ||
+                    (mouseContainer.children.length === 1 && e.target.parentElement.id == 'complete' && getCardInfo(mouseContainer.firstChild).value === 1
                     || e.target.parentElement.id == 'bottomRow' && getCardInfo(mouseContainer.firstChild).value === 13)) {
-                holdingCards = false
-                pickedUpFrom = null
                 moveItemsToNewContainer(mouseContainer, e.target)
             }
         } else if (e.target === deckContainers[0]) {
-            console.log('empty deck')
+            while (deckContainers[1].lastChild !== null) {
+                const topCard = deckContainers[1].lastChild
+                topCard.classList.add('back')
+                deckContainers[0].appendChild(topCard)
+                topCard.style.left = '13.5vmin'
+                setTimeout(() => topCard.style.left = '0', 30)
+            }
         }
     }
 }
-
 function moveItemsToNewContainer(startContainer, endContainer, startItem = startContainer.childNodes[0]) {
-    let idx = [...startContainer.childNodes].indexOf(startItem)
+    if (startContainer === mouseContainer) {
+        holdingCards = false
+        pickedUpFrom = null
+    } else if (endContainer === mouseContainer) {
+        holdingCards = true
+        pickedUpFrom = startContainer
+    }
+    const idx = [...startContainer.childNodes].indexOf(startItem)
     while (startContainer.childNodes[idx] !== undefined) {
         endContainer.appendChild(startContainer.childNodes[idx])
     }
@@ -114,6 +139,7 @@ function dealCards() {
                 topCard.style.position = 'relative'
                 topCard.style.top = `${(curNumCardsInRow - 7) * 2.15 - 22.5}vmin`
                 topCard.style.left = `${-13.5 * curIdx}vmin`
+                if (curNumCardsInRow === 1) newGameButton.style.visibility = 'visible'
                 setTimeout(() => {
                     topCard.style.top = '0'
                     topCard.style.left = '0'

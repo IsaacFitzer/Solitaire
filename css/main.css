@@ -76,16 +76,16 @@ button:hover {
     transition: top 1s ease-out, left 1s ease-out;
 }
 
-#bottomRow .card {
+#bottomRow .card, #mouseContainer .card {
     margin: -1px 0 -14.25vmin -1px;
+}
+
+#topRow .card {
+    margin: 0 0 -16.5vmin -1px;
 }
 
 #mouseContainer {
     position: absolute;
     transform: translate(-50%, 0);
     border: none;
-}
-
-#mouseContainer > .card {
-    margin: -1px 0 -14.25vmin -1px;
 }
