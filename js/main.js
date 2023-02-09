@@ -47,7 +47,7 @@ function onClick(e) {
                         won = false
                     }
                 })
-                if (won) console.log('Won!')
+                if (won) winSequence()
             }
             if (e.target.parentElement.parentElement.id === 'bottomRow'
                     && cardHeldInfo.value + 1 === topCardInfo.value
@@ -102,6 +102,7 @@ function onClick(e) {
         }
     }
 }
+
 function moveItemsToNewContainer(startContainer, endContainer, startItem = startContainer.childNodes[0]) {
     if (startContainer === mouseContainer) {
         holdingCards = false
@@ -164,7 +165,25 @@ function getShuffledDeck() {
     return shuffledDeck
 }
 
-onMouseMove = e => {
+function onMouseMove(e) {
     mouseContainer.style.left = e.pageX + 'px'
     mouseContainer.style.top = e.pageY + 'px'
+}
+
+function winSequence() {
+    for (let rank = 12; rank >= 0; rank--) {
+        for (let suit = 0; suit <= 3; suit++) {
+            let xPos = 41.35 + (suit * 13.5), yPos = .75, xVel = (Math.random() * 2) - 1, yVel = (Math.random() * 4) - 2
+            if (xVel < 0) xVel -= .3
+            else xVel += .3
+            while (xPos < 100 && xPos > -15) {
+                console.log(rank, suit, xVel)
+                completeContainers[0].innerHTML += `<div class="card ${suits[suit]}${ranks[rank]}" style="position: absolute; top: ${yPos}vmin; left: ${xPos}vmin; z-index: 2"></div>`
+                xPos += xVel
+                yPos += yVel
+                if (yPos > 70) yVel *= -.8
+                else yVel += .1
+            }
+        }
+    }
 }

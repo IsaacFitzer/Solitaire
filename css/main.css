@@ -23,6 +23,7 @@ button {
   border-radius: 4vmin;
   border: 0.1vmin solid grey;
   color: grey;
+  z-index: 2;
 }
 
 button:hover {
