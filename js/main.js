@@ -177,8 +177,7 @@ function winSequence() {
             if (xVel < 0) xVel -= .3
             else xVel += .3
             while (xPos < 100 && xPos > -15) {
-                console.log(rank, suit, xVel)
-                completeContainers[0].innerHTML += `<div class="card ${suits[suit]}${ranks[rank]}" style="position: absolute; top: ${yPos}vmin; left: ${xPos}vmin; z-index: 2"></div>`
+                completeContainers[0].innerHTML += `<div class="card ${suits[suit]}${ranks[rank]}" style="position: absolute; top: ${yPos}vmin; left: ${xPos}vmin; z-index: 1"></div>`
                 xPos += xVel
                 yPos += yVel
                 if (yPos > 70) yVel *= -.8
