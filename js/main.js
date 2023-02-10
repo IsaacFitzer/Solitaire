@@ -171,17 +171,19 @@ function onMouseMove(e) {
 }
 
 function winSequence() {
+    let curDelay = 1
     for (let rank = 12; rank >= 0; rank--) {
         for (let suit = 0; suit <= 3; suit++) {
             let xPos = 41.35 + (suit * 13.5), yPos = .75, xVel = (Math.random() * 2) - 1, yVel = (Math.random() * 4) - 2
             if (xVel < 0) xVel -= .3
             else xVel += .3
             while (xPos < 100 && xPos > -15) {
-                completeContainers[0].innerHTML += `<div class="card ${suits[suit]}${ranks[rank]}" style="position: absolute; top: ${yPos}vmin; left: ${xPos}vmin; z-index: 1"></div>`
+                setTimeout((curSuit, curRank, curYPos, curXPos) => completeContainers[0].innerHTML += `<div class="card ${suits[curSuit]}${ranks[curRank]}" style="position: absolute; top: ${curYPos}vmin; left: ${curXPos}vmin; z-index: 1"></div>`, curDelay, suit, rank, yPos, xPos)
                 xPos += xVel
                 yPos += yVel
-                if (yPos > 70) yVel *= -.8
+                if (yPos > 70 && yVel > 0) yVel *= -.8
                 else yVel += .1
+                curDelay += 50
             }
         }
     }
