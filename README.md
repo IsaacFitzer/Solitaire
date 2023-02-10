@@ -1,7 +1,13 @@
 # Isaac Fitzer's Solitaire game
 -Based on the old Windows version
 
-Used in project: HTML, CSS, JavaScript, card library
+Used in project: 
+    -HTML5
+    -CSS
+    -JavaScript
+    -card library from previous lesson
+
+Win by stacking all cards in the 4 complete piles.
 
 Link to game: https://isaacfitzer.github.io/Solitaire/
 

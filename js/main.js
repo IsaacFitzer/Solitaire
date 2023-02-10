@@ -5,6 +5,7 @@
   /*----- state variables -----*/
 let holdingCards
 let pickedUpFrom
+let setTimeouts = []
 
   /*----- cached elements  -----*/
 const newGameButton =  document.querySelector('button')
@@ -20,6 +21,7 @@ document.addEventListener('click', e => onClick(e))
   /*----- functions -----*/
 function startNewGame() {
     newGameButton.style.visibility = 'hidden'
+    setTimeouts.forEach(timeout => clearTimeout(timeout))
     document.querySelectorAll('.cardContainer').forEach(container => container.innerHTML = '')
     holdingCards = false
     pickedUpFrom = null
@@ -178,7 +180,7 @@ function winSequence() {
             if (xVel < 0) xVel -= .3
             else xVel += .3
             while (xPos < 100 && xPos > -15) {
-                setTimeout((curSuit, curRank, curYPos, curXPos) => completeContainers[0].innerHTML += `<div class="card ${suits[curSuit]}${ranks[curRank]}" style="position: absolute; top: ${curYPos}vmin; left: ${curXPos}vmin; z-index: 1"></div>`, curDelay, suit, rank, yPos, xPos)
+                setTimeouts.push(setTimeout((curSuit, curRank, curYPos, curXPos) => completeContainers[0].innerHTML += `<div class="card ${suits[curSuit]}${ranks[curRank]}" style="position: absolute; top: ${curYPos}vmin; left: ${curXPos}vmin; z-index: 1"></div>`, curDelay, suit, rank, yPos, xPos))
                 xPos += xVel
                 yPos += yVel
                 if (yPos > 70 && yVel > 0) yVel *= -.8
