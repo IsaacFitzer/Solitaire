@@ -5,7 +5,7 @@ Used in project:
     -HTML5
     -CSS
     -JavaScript
-    -card library from previous lesson
+    -free card svg library
 
 Win by stacking all cards in the 4 complete piles.
 
